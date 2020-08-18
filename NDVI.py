@@ -10,19 +10,18 @@ import ruptures as rpt
 import numpy as np
 import matplotlib.pyplot as plt
 
-dataset = pd.read_csv('ndvi_time_all_points.csv')
-'''
-dataset = pd.read_csv('ndvi_time_final.csv')
-X = dataset.iloc[:,1:-8]'''
+#dataset = pd.read_csv('ndvi_time_all_points.csv') This is the ndvi of only haryana
+#X = dataset.iloc[:,2:-7]
 
-X = dataset.iloc[:,2:-7]
+dataset = pd.read_csv('ndvi_time_final.csv') #Both punjab and haryana
+X = dataset.iloc[:,1:-8] #excluding the first and last few days because pixels at all locations were masked for those days
 
 arr = []
 
 for j in range(X.shape[1]):
-    day = X.loc[X.iloc[:,j] >   0]
+    day = X.loc[X.iloc[:,j] >   0] #Excluding masked pixels. they are assigned a negative value
 
-    value = day.iloc[:,j].mean()
+    value = day.iloc[:,j].mean()  
     if value>0:
         arr.append(value)
 
